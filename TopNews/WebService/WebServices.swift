@@ -9,29 +9,23 @@
 import Foundation
 
 class WebServices {
-    
-//MARK:- Webservice to fecth the articles
-    
-    func getArticles(url:URL, completion : @escaping(([Articles]?) -> ())){
-        
-        URLSession.shared.dataTask(with: url){data,response,error in
-            
+    // MARK: - Webservice to fecth the articles
+
+    func getArticles(url: URL, completion: @escaping (([Articles]?) -> Void)) {
+        URLSession.shared.dataTask(with: url) { data, _, error in
+
             if let error = error {
-                
                 print(error.localizedDescription)
                 completion(nil)
             }
-            guard  let data = data else { return }
-                
-                let articleList =  try? JSONDecoder().decode(Headlines.self, from: data)
-                
-                if let articleList = articleList {
-                    
-                    completion(articleList.articles)
-                }
-                
+            guard let data = data else { return }
+
+            let articleList = try? JSONDecoder().decode(Headlines.self, from: data)
+
+            if let articleList = articleList {
+                completion(articleList.articles)
+            }
+
         }.resume()
-        
     }
-    
 }

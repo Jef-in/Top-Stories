@@ -9,38 +9,28 @@
 import Foundation
 import UIKit
 
-class NewsDetailViewController:UIViewController {
-    
-    @IBOutlet weak var TitleLabel: UILabel!
-    
-    @IBOutlet weak var DescriptionLabel: UILabel!
-    
-    @IBOutlet weak var newsImage: UIImageView!
-    
-    @IBOutlet weak var newsContentTextView: UITextView!
-    
+class NewsDetailViewController: UIViewController {
+    @IBOutlet var TitleLabel: UILabel!
+
+    @IBOutlet var DescriptionLabel: UILabel!
+
+    @IBOutlet var newsImage: UIImageView!
+
+    @IBOutlet var newsContentTextView: UITextView!
+
     var article: Articles!
-    
-override func viewDidLoad() {
-   
-   initialSetup()
-}
-    
-func initialSetup(){
-        
-    self.TitleLabel.text = article.title?.uppercased()
-    self.TitleLabel.font = UIFont.boldSystemFont(ofSize: 17.0)
-    self.DescriptionLabel.text = article.description
-    self.newsContentTextView.text = article.content
-    if let url = article.urlToImage {
-        
-    self.newsImage.loadImagefromUrl(urlString: url)
-        
+
+    override func viewDidLoad() {
+        initialSetup()
     }
-    
-        
-        
-    
-}
-    
+
+    func initialSetup() {
+        TitleLabel.text = article.title?.uppercased()
+        TitleLabel.font = UIFont.boldSystemFont(ofSize: 17.0)
+        DescriptionLabel.text = article.description
+        newsContentTextView.text = article.content
+        if let url = article.urlToImage {
+            newsImage.loadImagefromUrl(urlString: url)
+        }
+    }
 }

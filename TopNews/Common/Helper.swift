@@ -7,73 +7,60 @@
 //
 
 import Foundation
-import  UIKit
+import UIKit
 
 class Helper {
-    
-    static var headlineCellId:String = "headlinesCell"
-    static var categoriesCellId:String = "categoriesCell"
-    static var newsCellId:String = "newsCell"
-    static var Categories = ["All","Business","Entertainment","General","Science","Sports","Technology"]
-    
-    static var headlinesAPI:String = "https://newsapi.org/v2/top-headlines?country=in&language=en&apiKey="
-    static var newsAPI:String = "https://newsapi.org/v2/everything?q="
-    static var APIKey:String = "4d3c0d1d011a4a9ebd55e1e02ac84df6"
-    
+    static var headlineCellId: String = "headlinesCell"
+    static var categoriesCellId: String = "categoriesCell"
+    static var newsCellId: String = "newsCell"
+    static var Categories = ["All", "Business", "Entertainment", "General", "Science", "Sports", "Technology"]
 
+    static var headlinesAPI: String = "https://newsapi.org/v2/top-headlines?country=in&language=en&apiKey="
+    static var newsAPI: String = "https://newsapi.org/v2/everything?q="
+    static var APIKey: String = "4d3c0d1d011a4a9ebd55e1e02ac84df6"
 
-static func showAlert(message: String) {
-        
+    static func showAlert(message: String) {
         let alert = UIAlertController(title: "TOP NEWS ", message: message as String, preferredStyle: UIAlertController.Style.alert)
-        
+
         alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
-        
+
         UIApplication.shared.keyWindow?.rootViewController?.present(alert, animated: true, completion: nil)
-}
-    
+    }
 }
 
 let imageCache = NSCache<NSString, UIImage>()
 
-// MARK:- To download the image and store in the cache
+// MARK: - To download the image and store in the cache
 
 extension UIImageView {
-    
-    func loadImagefromUrl(urlString:String){
-        
+    func loadImagefromUrl(urlString: String) {
         guard let url = URL(string: urlString) else {
             return
         }
-        
-        self.image = nil
-        
+
+        image = nil
+
         if let imageFromCache = imageCache.object(forKey: urlString as NSString) as? UIImage {
-            
-            self.image = imageFromCache
-            
+            image = imageFromCache
+
             return
         }
-        
-        URLSession.shared.dataTask(with: url) { (data, response, err) in
-            
+
+        URLSession.shared.dataTask(with: url) { data, _, err in
+
             if let err = err {
-                
-                print("error :",err)
+                print("error :", err)
             }
-            
-            guard let data = data else { return}
-            
+
+            guard let data = data else { return }
+
             DispatchQueue.main.async {
-                
                 let imageToCache = UIImage(data: data)
-                
+
                 imageCache.setObject(imageToCache!, forKey: urlString as NSString)
                 self.image = imageToCache
             }
-            
-        }.resume()
-        
-    }
 
-    
+        }.resume()
+    }
 }

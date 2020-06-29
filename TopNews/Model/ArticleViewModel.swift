@@ -9,48 +9,29 @@
 import Foundation
 
 struct ArticleListViewModel {
-    
-let article: [Articles]
-    
+    let article: [Articles]
 }
 
 struct NewsListViewModel {
-    
-let newsarticle: [Articles]
-    
+    let newsarticle: [Articles]
 }
 
 struct ArticleViewModel {
-    
-  private  let article : Articles
-  
-    
+    private let article: Articles
 }
 
 struct NewsViewModel {
-   
-private  let newsarticle : Articles
+    private let newsarticle: Articles
 }
 
-extension ArticleViewModel{
-    
-    init(_ article: Articles ) {
-     
+extension ArticleViewModel {
+    init(_ article: Articles) {
         self.article = article
-        
     }
-    
-
-  
 }
 
 extension NewsViewModel {
-    
     init(_ newsarticle: Articles) {
-        
-         self.newsarticle = newsarticle
+        self.newsarticle = newsarticle
     }
-    
-
-    
 }

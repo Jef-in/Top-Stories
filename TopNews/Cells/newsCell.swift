@@ -9,24 +9,18 @@
 import Foundation
 import UIKit
 
-class newsCell:UITableViewCell{
-    
-    @IBOutlet weak var newsImage: UIImageView!
-    
-    @IBOutlet weak var newsDescriptionLbl: UILabel!
-    
+class newsCell: UITableViewCell {
+    @IBOutlet var newsImage: UIImageView!
+
+    @IBOutlet var newsDescriptionLbl: UILabel!
+
     override func awakeFromNib() {
-        
     }
-    
-    func setValues(article: Articles){
-      
-    self.newsDescriptionLbl.text = article.title
-    if let url = article.urlToImage {
-        
-    self.newsImage.loadImagefromUrl(urlString: url)
-        
-    }
-        
+
+    func setValues(article: Articles) {
+        newsDescriptionLbl.text = article.title
+        if let url = article.urlToImage {
+            newsImage.loadImagefromUrl(urlString: url)
+        }
     }
 }

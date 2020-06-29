@@ -10,18 +10,13 @@ import Foundation
 import UIKit
 
 class categoriesCell: UICollectionViewCell {
-    
-@IBOutlet weak var categoryNameLabel: UILabel!
-    
-override func awakeFromNib() {
-        
-}
+    @IBOutlet var categoryNameLabel: UILabel!
 
-func setValues(categories: String) {
- 
-    self.categoryNameLabel.font = UIFont.boldSystemFont(ofSize: 16.0)
-    self.categoryNameLabel.text = categories
-              
-}
-    
+    override func awakeFromNib() {
+    }
+
+    func setValues(categories: String) {
+        categoryNameLabel.font = UIFont.boldSystemFont(ofSize: 16.0)
+        categoryNameLabel.text = categories
+    }
 }

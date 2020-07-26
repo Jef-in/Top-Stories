@@ -18,14 +18,6 @@ class Helper {
     static var headlinesAPI: String = "https://newsapi.org/v2/top-headlines?country=in&language=en&apiKey="
     static var newsAPI: String = "https://newsapi.org/v2/everything?q="
     static var APIKey: String = "4d3c0d1d011a4a9ebd55e1e02ac84df6"
-
-    static func showAlert(message: String) {
-        let alert = UIAlertController(title: "TOP NEWS ", message: message as String, preferredStyle: UIAlertController.Style.alert)
-
-        alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
-
-        UIApplication.shared.keyWindow?.rootViewController?.present(alert, animated: true, completion: nil)
-    }
 }
 
 let imageCache = NSCache<NSString, UIImage>()
@@ -40,9 +32,8 @@ extension UIImageView {
 
         image = nil
 
-        if let imageFromCache = imageCache.object(forKey: urlString as NSString) as? UIImage {
+        if let imageFromCache = imageCache.object(forKey: urlString as NSString) {
             image = imageFromCache
-
             return
         }
 
@@ -55,12 +46,21 @@ extension UIImageView {
             guard let data = data else { return }
 
             DispatchQueue.main.async {
-                let imageToCache = UIImage(data: data)
-
-                imageCache.setObject(imageToCache!, forKey: urlString as NSString)
-                self.image = imageToCache
+                if let imageToCache = UIImage(data: data) {
+                    imageCache.setObject(imageToCache, forKey: urlString as NSString)
+                    self.image = imageToCache
+                }
             }
 
         }.resume()
+    }
+}
+
+extension UIViewController {
+    func showAlert(title: String, msg: String) {
+        let alert = UIAlertController(title: title, message: msg, preferredStyle: .alert)
+        let action = UIAlertAction(title: "OK", style: .default, handler: nil)
+        alert.addAction(action)
+        present(alert, animated: true, completion: nil)
     }
 }

@@ -102,14 +102,14 @@ class NewsListViewController: UIViewController {
             DispatchQueue.main.async {
                 self.NoconnectionView.isHidden = false
             }
-            Helper.showAlert(message: "Please check your network connectivity")
+            self.showAlert(title: "TOP NEWS", msg: "Please check your network connectivity")
         }
     }
 
     // MARK: - Auto scroll for the headlines collection
 
     @objc func runTimedCode() {
-        var index = IndexPath(row: currentPage, section: 0)
+        let index = IndexPath(row: currentPage, section: 0)
 
         if articleViewModel != nil {
             if currentPage == articleViewModel.article.count - 1 {
@@ -167,7 +167,7 @@ extension NewsListViewController: UICollectionViewDelegate, UICollectionViewData
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if collectionView == categoriesCollection {
             selectedCategory = indexPath.row
-            var index = IndexPath(row: selectedCategory, section: 0)
+            let index = IndexPath(row: selectedCategory, section: 0)
             categoriesCollection.scrollToItem(at: index, at: .right, animated: true)
 
             DispatchQueue.main.async {
